@@ -3,12 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MercadilloApp | Juego educativo para aprender dinero y euros en primaria</title>
-
-<meta name="description" content="MercadilloApp es un juego educativo para aprender a utilizar monedas, billetes, pagos y cambios. Diseñado para educación primaria y alumnado con discapacidad intelectual.">
-
-<meta name="keywords" content="dinero primaria, monedas euros, billetes, cambio, juego educativo, discapacidad intelectual, matemáticas primaria, mercadillo">
+<title>MercadilloApp – Juego para aprender a usar el dinero</title>
 <link rel="icon" href="data:,">
+
+<meta name="description" content="Juego educativo de lectura fácil para aprender a usar el dinero. Pensado para alumnado de Primaria con discapacidad intelectual. Sin límite de tiempo.">
+<meta name="keywords" content="juego educativo, dinero, euros, matemáticas, primaria, discapacidad intelectual, lectura fácil, accesibilidad cognitiva, mercadillo, aprender a pagar, cambio">
+<meta name="robots" content="index, follow">
+<meta name="author" content="MercadilloApp">
+<meta name="theme-color" content="#3FA873">
+
+<meta property="og:title" content="MercadilloApp – Aprende a usar el dinero">
+<meta property="og:description" content="Juego educativo de lectura fácil para aprender a pagar y dar cambio en un mercadillo. Sin límite de tiempo y con mucho apoyo visual.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MercadilloApp">
+<meta name="twitter:description" content="Aprende a usar el dinero jugando. Lectura fácil, botones grandes y sin prisas.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "MercadilloApp",
+  "description": "Juego educativo de lectura fácil para aprender el uso del dinero en un mercadillo. Pensado para alumnado de Primaria con discapacidad intelectual.",
+  "inLanguage": "es",
+  "learningResourceType": "Juego educativo",
+  "educationalLevel": "Educación Primaria",
+  "isAccessibleForFree": true,
+  "accessibilityFeature": [
+    "readingOrder",
+    "highContrastDisplay",
+    "largePrint",
+    "alternativeText"
+  ],
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "student"
+  }
+}
+</script>
 
 <style>
 :root{
@@ -50,6 +84,18 @@ body{
 
 button{
   user-select:none;
+}
+
+.sr-only{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
 }
 
 .screen{
@@ -118,7 +164,7 @@ button{
 
 .home-content{
   text-align:center;
-  margin-top:6vh;
+  margin-top:5vh;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -140,7 +186,44 @@ button{
 .home-emojis{
   font-size:2.6rem;
   letter-spacing:12px;
-  margin:6px 0 10px;
+  margin:6px 0 0;
+}
+
+.how-to{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:4px 0 6px;
+}
+
+.step{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  background:#fff;
+  border-radius:16px;
+  padding:10px 16px;
+  box-shadow:var(--shadow);
+  min-width:84px;
+}
+
+.step-emoji{
+  font-size:1.8rem;
+}
+
+.step-text{
+  font-size:.85rem;
+  font-weight:800;
+  color:var(--muted);
+}
+
+.step-arrow{
+  font-size:1.4rem;
+  color:var(--muted);
+  font-weight:800;
 }
 
 .screen-header{
@@ -180,10 +263,17 @@ button{
   margin-top:14px;
 }
 
-@media(min-width:760px){
+@media(min-width:560px){
   .modes-grid{
-    grid-template-columns:repeat(3,1fr);
-    max-width:760px;
+    grid-template-columns:repeat(2,1fr);
+    max-width:640px;
+  }
+}
+
+@media(min-width:900px){
+  .modes-grid{
+    grid-template-columns:repeat(4,1fr);
+    max-width:980px;
   }
 }
 
@@ -216,6 +306,10 @@ button{
 
 .mode-cambio{
   background:var(--blue-bg);
+}
+
+.mode-dificil{
+  background:var(--red-bg);
 }
 
 .mode-emoji{
@@ -327,6 +421,15 @@ button{
   width:100%;
   max-width:560px;
   font-weight:800;
+}
+
+.task-hint{
+  font-size:.95rem;
+  font-weight:700;
+  color:var(--muted);
+  text-align:center;
+  margin:0 0 10px;
+  max-width:560px;
 }
 
 .total-card{
@@ -459,6 +562,16 @@ button{
   color:#0D2C52;
 }
 
+.den-50{
+  background:#F4B860;
+  color:#5C3D00;
+}
+
+.den-100{
+  background:#7FD9C4;
+  color:#0B4A40;
+}
+
 .actions{
   display:flex;
   gap:14px;
@@ -569,12 +682,33 @@ button{
 </head>
 
 <body>
+<noscript>Esta aplicación necesita JavaScript activado para funcionar.</noscript>
+
+<main id="app">
 
 <section id="screen-home" class="screen active" aria-label="Pantalla de inicio">
   <div class="home-content">
     <h1 class="title">🛒 MercadilloApp</h1>
     <p class="subtitle">Aprende a comprar y pagar en el mercadillo</p>
     <div class="home-emojis" aria-hidden="true">🍎 🍞 🧃 🪙</div>
+
+    <div class="how-to" aria-label="Cómo se juega">
+      <div class="step">
+        <span class="step-emoji" aria-hidden="true">👀</span>
+        <span class="step-text">Mira</span>
+      </div>
+      <span class="step-arrow" aria-hidden="true">➜</span>
+      <div class="step">
+        <span class="step-emoji" aria-hidden="true">🪙</span>
+        <span class="step-text">Elige</span>
+      </div>
+      <span class="step-arrow" aria-hidden="true">➜</span>
+      <div class="step">
+        <span class="step-emoji" aria-hidden="true">✅</span>
+        <span class="step-text">Comprueba</span>
+      </div>
+    </div>
+
     <button class="btn btn-primary btn-xl" id="btn-start">▶️ Jugar</button>
   </div>
 </section>
@@ -590,19 +724,25 @@ button{
     <button class="mode-card mode-facil" data-mode="facil">
       <span class="mode-emoji">🟢</span>
       <span class="mode-name">Fácil</span>
-      <span class="mode-desc">1 €, 2 € y 5 €</span>
+      <span class="mode-desc">Monedas pequeñas</span>
     </button>
 
     <button class="mode-card mode-medio" data-mode="medio">
       <span class="mode-emoji">🟡</span>
       <span class="mode-name">Medio</span>
-      <span class="mode-desc">Suma productos</span>
+      <span class="mode-desc">Suma de productos</span>
     </button>
 
     <button class="mode-card mode-cambio" data-mode="cambio">
       <span class="mode-emoji">🔄</span>
       <span class="mode-name">Cambio</span>
-      <span class="mode-desc">Hasta 20 €</span>
+      <span class="mode-desc">Calcula el cambio</span>
+    </button>
+
+    <button class="mode-card mode-dificil" data-mode="dificil">
+      <span class="mode-emoji">🔴</span>
+      <span class="mode-name">Difícil</span>
+      <span class="mode-desc">Hasta 100 €</span>
     </button>
   </div>
 </section>
@@ -630,6 +770,8 @@ button{
   </div>
 
   <div class="pay-info" id="pay-info" hidden></div>
+
+  <p class="task-hint" id="task-hint">💡 Paga el total exacto.</p>
 
   <div class="total-card">
     <span id="total-label">Tu dinero</span>
@@ -668,6 +810,8 @@ button{
   </div>
 </section>
 
+</main>
+
 <script>
 (function(){
   "use strict";
@@ -690,21 +834,38 @@ button{
     {emoji:"🍪", name:"Galletas"},
     {emoji:"🎒", name:"Mochila"},
     {emoji:"✏️", name:"Lápiz"},
-    {emoji:"👕", name:"Camiseta"}
+    {emoji:"👕", name:"Camiseta"},
+    {emoji:"🍓", name:"Fresas"},
+    {emoji:"🍑", name:"Melocotón"},
+    {emoji:"🍒", name:"Cerezas"},
+    {emoji:"🍋", name:"Limón"},
+    {emoji:"🍍", name:"Piña"},
+    {emoji:"🥖", name:"Baguette"},
+    {emoji:"🧁", name:"Magdalena"},
+    {emoji:"🥨", name:"Pretzel"},
+    {emoji:"🧦", name:"Calcetines"},
+    {emoji:"🎨", name:"Pintura"},
+    {emoji:"⚽", name:"Pelota"},
+    {emoji:"👟", name:"Zapatillas"},
+    {emoji:"🕶️", name:"Gafas de sol"},
+    {emoji:"🎁", name:"Regalo"}
   ];
 
   const DENOMINATIONS = {
-    1:  {type:"coin", label:"1 €",  cls:"den-1"},
-    2:  {type:"coin", label:"2 €",  cls:"den-2"},
-    5:  {type:"bill", label:"5 €",  cls:"den-5"},
-    10: {type:"bill", label:"10 €", cls:"den-10"},
-    20: {type:"bill", label:"20 €", cls:"den-20"}
+    1:   {type:"coin", label:"1 €",   cls:"den-1"},
+    2:   {type:"coin", label:"2 €",   cls:"den-2"},
+    5:   {type:"bill", label:"5 €",   cls:"den-5"},
+    10:  {type:"bill", label:"10 €",  cls:"den-10"},
+    20:  {type:"bill", label:"20 €",  cls:"den-20"},
+    50:  {type:"bill", label:"50 €",  cls:"den-50"},
+    100: {type:"bill", label:"100 €", cls:"den-100"}
   };
 
   const MODE_NAMES = {
     facil:"Fácil",
     medio:"Medio",
-    cambio:"Cambio"
+    cambio:"Cambio",
+    dificil:"Difícil"
   };
 
   const ROUNDS = 20;
@@ -720,7 +881,10 @@ button{
     currentTarget:0,
     payBill:null,
     hits:0,
-    score:0
+    score:0,
+    recentProductNames:[],
+    lastPrice:null,
+    lastBill:null
   };
 
   function $(id){
@@ -737,6 +901,42 @@ button{
 
   function sum(array){
     return array.reduce((acc,value) => acc + value, 0);
+  }
+
+  // Evita que el mismo número salga dos veces seguidas, cuando es posible.
+  function randomIntNoRepeat(min,max,lastValue){
+    if(max <= min){
+      return min;
+    }
+
+    let value;
+    let attempts = 0;
+
+    do{
+      value = randomInt(min,max);
+      attempts++;
+    } while(value === lastValue && attempts < 8);
+
+    return value;
+  }
+
+  // Elige un producto evitando, si es posible, los nombres recientes.
+  function pickProduct(excludeNames){
+    let pool = PRODUCTS.filter(product => excludeNames.indexOf(product.name) === -1);
+
+    if(pool.length === 0){
+      pool = PRODUCTS;
+    }
+
+    return randomItem(pool);
+  }
+
+  function rememberProduct(name){
+    state.recentProductNames.push(name);
+
+    if(state.recentProductNames.length > 6){
+      state.recentProductNames.shift();
+    }
   }
 
   function showScreen(id){
@@ -820,6 +1020,9 @@ button{
     state.round = 0;
     state.hits = 0;
     state.score = 0;
+    state.recentProductNames = [];
+    state.lastPrice = null;
+    state.lastBill = null;
 
     $("hits").textContent = "0";
     $("score").textContent = "0";
@@ -851,6 +1054,16 @@ button{
       };
     }
 
+    if(state.mode === "dificil"){
+      return {
+        wallet: round < 10 ? [1,2,5,10,20,50] : [1,2,5,10,20,50,100],
+        items: round < 6 ? 2 : (round < 14 ? 3 : 4),
+        min: 10,
+        max: round < 10 ? 60 : 100,
+        exact: true
+      };
+    }
+
     return {
       wallet: round < 8 ? [1,2,5,10] : [1,2,5,10,20],
       items: 1,
@@ -876,21 +1089,35 @@ button{
     const config = levelConfig();
 
     if(config.change){
-      const bill = randomItem(config.bills);
-      const price = randomInt(config.min,Math.min(config.max,bill - 1));
+      let bill = randomItem(config.bills);
+      let billAttempts = 0;
+
+      while(bill === state.lastBill && config.bills.length > 1 && billAttempts < 6){
+        bill = randomItem(config.bills);
+        billAttempts++;
+      }
+
+      const maxPrice = Math.min(config.max, bill - 1);
+      const price = randomIntNoRepeat(config.min, maxPrice, state.lastPrice);
 
       state.payBill = bill;
+      state.lastBill = bill;
       state.currentPrice = price;
+      state.lastPrice = price;
       state.currentTarget = bill - price;
+
+      const product = pickProduct(state.recentProductNames);
+      rememberProduct(product.name);
 
       state.items = [
         {
-          product: randomItem(PRODUCTS),
+          product: product,
           price: price
         }
       ];
     }else{
       let total = 0;
+      const usedNames = [];
 
       for(let i = 0; i < config.items; i++){
         const remainingItems = config.items - i - 1;
@@ -899,15 +1126,18 @@ button{
           config.max - total - remainingItems
         );
 
-        const price = randomInt(
-          config.min,
-          Math.max(config.min,Math.min(remainingMax,config.max))
-        );
+        const upper = Math.max(config.min,Math.min(remainingMax,config.max));
+        const price = randomIntNoRepeat(config.min, upper, state.lastPrice);
 
         total += price;
+        state.lastPrice = price;
+
+        const product = pickProduct(usedNames.concat(state.recentProductNames));
+        usedNames.push(product.name);
+        rememberProduct(product.name);
 
         state.items.push({
-          product: randomItem(PRODUCTS),
+          product: product,
           price: price
         });
       }
@@ -950,6 +1180,7 @@ button{
     $("price-value").textContent = state.currentPrice + " €";
 
     const payInfo = $("pay-info");
+    const hint = $("task-hint");
 
     if(state.mode === "cambio"){
       payInfo.hidden = false;
@@ -958,6 +1189,8 @@ button{
       $("task-text").textContent = "Elige el cambio";
       $("price-label").textContent = "Precio";
       $("total-label").textContent = "Cambio elegido";
+
+      hint.textContent = "💡 Debes dar el dinero que sobra.";
     }else{
       payInfo.hidden = true;
 
@@ -970,6 +1203,10 @@ button{
         : "Precio";
 
       $("total-label").textContent = "Tu dinero";
+
+      hint.textContent = state.items.length > 1
+        ? "💡 Suma todos los precios."
+        : "💡 Paga el total exacto.";
     }
 
     updateTotal();
@@ -1129,4 +1366,5 @@ button{
 </script>
 
 </body>
+</html>
 </html>
