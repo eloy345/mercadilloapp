@@ -226,6 +226,32 @@ button{
   font-weight:800;
 }
 
+.home-info{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  max-width:560px;
+  margin:0 0 4px;
+}
+
+.info-chip{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:#fff;
+  border-radius:14px;
+  padding:8px 14px;
+  box-shadow:var(--shadow);
+  font-size:.9rem;
+  font-weight:800;
+  color:var(--muted);
+}
+
+.info-chip-icon{
+  font-size:1.15rem;
+}
+
 .screen-header{
   display:flex;
   align-items:center;
@@ -707,6 +733,14 @@ button{
         <span class="step-emoji" aria-hidden="true">✅</span>
         <span class="step-text">Comprueba</span>
       </div>
+    </div>
+
+    <div class="home-info" aria-label="Información del juego">
+      <span class="info-chip"><span class="info-chip-icon">🧠</span>Discapacidad intelectual</span>
+      <span class="info-chip"><span class="info-chip-icon">📖</span>Lectura fácil</span>
+      <span class="info-chip"><span class="info-chip-icon">🏫</span>Educación Primaria</span>
+      <span class="info-chip"><span class="info-chip-icon">⏳</span>Sin límite de tiempo</span>
+      <span class="info-chip"><span class="info-chip-icon">🆓</span>Gratis</span>
     </div>
 
     <button class="btn btn-primary btn-xl" id="btn-start">▶️ Jugar</button>
@@ -1366,5 +1400,4 @@ button{
 </script>
 
 </body>
-</html>
 </html>
